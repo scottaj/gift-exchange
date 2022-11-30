@@ -3,9 +3,9 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {useAuth} from "../App";
 
 export function Login() {
-    let navigate = useNavigate();
-    let location = useLocation();
-    let auth = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const auth = useAuth();
 
     function handleLogin(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -27,13 +27,13 @@ export function Login() {
 
     return (
         <div className="App-login login-form">
-            <h1 role="heading">Login</h1>
+            <h1>Login</h1>
             <form onSubmit={handleLogin}>
                 <label>
                     Username
                     <input type="text" name="username"/>
                 </label>
-                <button type="submit" role="button">Login</button>
+                <button type="submit">Login</button>
             </form>
         </div>
     );

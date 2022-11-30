@@ -1,11 +1,10 @@
 import * as React from "react";
 import {Link, Outlet} from "react-router-dom";
+import {AuthStatus} from "./AuthStatus";
 
 export default function Layout() {
     return (
         <div>
-            {/* A "layout route" is a good place to put markup you want to
-          share across all the components on your site, like navigation. */}
             <nav>
                 <ul>
                     <li>
@@ -14,11 +13,8 @@ export default function Layout() {
                 </ul>
             </nav>
 
-            <hr/>
+            <AuthStatus/>
 
-            {/* An <Outlet> renders whatever child route is currently active,
-          so you can think about this <Outlet> as a placeholder for
-          the child routes we defined above. */}
             <Outlet/>
         </div>
     );

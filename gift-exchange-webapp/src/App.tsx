@@ -3,6 +3,7 @@ import {Routes, Route, Link, useLocation, Navigate} from "react-router-dom";
 import Layout from "./components/Layout";
 import {Login} from "./components/Login";
 import {fakeAuthProvider} from "./FakeAuthProvider";
+import {GiftExchange} from "./components/GiftExchange";
 
 
 export function App() {
@@ -86,15 +87,6 @@ function RequireAuth({children}: { children: JSX.Element }) {
     }
 
     return children;
-}
-
-
-function GiftExchange() {
-    return (
-        <div>
-            <h1 role="heading">Gift Exchanges</h1>
-        </div>
-    )
 }
 
 function NoMatch() {
