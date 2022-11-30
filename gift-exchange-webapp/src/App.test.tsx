@@ -16,14 +16,30 @@ test('requires auth to view gift exchanges', async () => {
   const linkElement = screen.getByText(/Gift Exchanges/i);
   await user.click(linkElement);
 
-  const loginHeader = screen.getByRole("heading")
-  expect(loginHeader).toHaveTextContent("Login")
+  const loginHeader = screen.getByRole("heading", {level: 1});
+  expect(loginHeader).toHaveTextContent("Login");
+
+  const loginElement = screen.getByLabelText(/Username/);
+  await user.type(loginElement, "user1");
+  await user.click(screen.getByRole("button", {name: "Login"}));
+
+  await waitFor(() => {
+    expect(screen.getByRole("heading", {level: 1})).toHaveTextContent("Gift Exchanges");
+  });
+});
+
+test("shows greeting after you log in", async () => {
+  const user = userEvent.setup();
+  render(<BrowserRouter><App /></BrowserRouter>);
+
+  const loginLinkElement = screen.getByRole("link", {name: "Login"});
+  await user.click(loginLinkElement);
 
   const loginElement = screen.getByLabelText(/Username/);
   await user.type(loginElement, "user1");
   await user.click(screen.getByRole("button"));
 
   await waitFor(() => {
-    expect(screen.getByRole("heading")).toHaveTextContent("Gift Exchanges")
-  })
+    expect(screen.getByText(/Hello user1/)).toBeInTheDocument()
+  });
 })
