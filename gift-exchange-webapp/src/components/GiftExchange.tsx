@@ -1,7 +1,8 @@
 import * as React from "react";
 import {useAuth} from "../App";
 import {useEffect, useState} from "react";
-import {fetchGiftExchangesForUser, GiftExchangeModel} from "../data/DataProviders";
+import {GiftExchangeModel, GiftExchangeRepository} from "../data/DataProviders";
+import {Link} from "react-router-dom";
 
 export function GiftExchange() {
     const auth = useAuth();
@@ -9,7 +10,7 @@ export function GiftExchange() {
 
     useEffect(() => {
         async function loadGiftExchanges() {
-            const giftExchangeData = await fetchGiftExchangesForUser(auth.user);
+            const giftExchangeData = await GiftExchangeRepository.fetchGiftExchangesForUser(auth.user);
             setGiftExchanges(giftExchangeData);
         }
 
@@ -30,6 +31,7 @@ export function GiftExchange() {
     return (
         <div>
             <h1>Gift Exchanges</h1>
+            <Link to="/gift-exchanges/create">Create new gift exchange</Link>
             <ul>{giftExchangeElements}</ul>
         </div>
     )

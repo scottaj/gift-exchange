@@ -4,6 +4,7 @@ import Layout from "./components/Layout";
 import {Login} from "./components/Login";
 import {fakeAuthProvider} from "./FakeAuthProvider";
 import {GiftExchange} from "./components/GiftExchange";
+import {CreateGiftExchange} from "./components/CreateGiftExchange";
 
 
 export function App() {
@@ -19,6 +20,11 @@ export function App() {
                     <Route path="/gift-exchanges" element={
                         <RequireAuth>
                             <GiftExchange/>
+                        </RequireAuth>
+                    }/>
+                    <Route path="/gift-exchanges/create" element={
+                        <RequireAuth>
+                            <CreateGiftExchange/>
                         </RequireAuth>
                     }/>
 

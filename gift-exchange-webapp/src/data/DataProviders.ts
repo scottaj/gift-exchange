@@ -9,19 +9,37 @@ export interface GiftExchangeModel {
     members: Array<UserModel>;
 }
 
-export async function fetchGiftExchangesForUser(userId?: string): Promise<Array<GiftExchangeModel>> {
-    if (!userId) {
-        return Promise.resolve([]);
-    } else {
-        const mockData: Promise<Array<GiftExchangeModel>> = new Promise((resolve) => {
-            setTimeout(() => {
-                resolve([
-                    {id: 1, name: 'Scott Family Christmas 2022', members: [{id: 'al'}, {id: 'jeanette'}]},
-                    {id: 2, name: 'Head Family Christmas 2022', members: [{id: 'al'}, {id: 'jeanette'}]}
-                ]);
-            }, 500);
-        })
+export class GiftExchangeRepository {
+    static async fetchGiftExchangesForUser(userId?: string): Promise<Array<GiftExchangeModel>> {
+        if (!userId) {
+            return Promise.resolve([]);
+        } else {
+            if (!localStorage.getItem("GiftExchanges")) {
+                localStorage.setItem("GiftExchanges", "[]");
+            }
+            const localStorageData: Array<GiftExchangeModel> = JSON.parse(localStorage.getItem("GiftExchanges") ?? "[]")
 
-        return mockData;
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve(localStorageData);
+                }, 500);
+            });
+        }
+    }
+
+    static async createGiftExchange(giftExchange: GiftExchangeModel): Promise<GiftExchangeModel> {
+        if (!localStorage.getItem("GiftExchanges")) {
+            localStorage.setItem("GiftExchanges", "[]");
+        }
+
+        const localStorageData: Array<GiftExchangeModel> = JSON.parse(localStorage.getItem("GiftExchanges") ?? "[]")
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                const updatedModel = {...giftExchange, id: Math.floor(Math.random() * 10000)};
+                localStorageData.push(updatedModel);
+                localStorage.setItem("GiftExchanges", JSON.stringify(localStorageData));
+                resolve(updatedModel);
+            }, 500);
+        });
     }
 }
